@@ -13,8 +13,8 @@ window.onload = function() {
      *
      *  If you change the name to helloparmas as you want, the contents will be reflected on the screen.
      */
-    var helloApi = 'luna://com.domain.app.service/hello';
-    var helloParams = '{"name":"webOS"}';
+    var helloApi = 'luna://com.domain.tutorial.service/hello';
+    var helloParams = '{"name":"THINCAR"}';
 
     function getTime_callback(msg){
         var arg = JSON.parse(msg);
