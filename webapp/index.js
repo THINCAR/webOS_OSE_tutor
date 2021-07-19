@@ -1,20 +1,9 @@
 window.onload = function() {
     var bridge = new WebOSServiceBridge();
+    
     /*
-     *  getTimeApi calls gettime of systemservice, a module in the platform.
+     *  콜백함수 정의
      */
-    var getTimeUrl = 'luna://com.webos.service.systemservice/clock/getTime';
-    var getTimeParams = '{}';
-
-    /*
-     *  helloApi calls the hello method of js_service template provided by CLI.
-     *  In this case, the service name is used as default name "com.domain.app.service" is.
-     *  If you change this service name, you need to change the service name of the following API.
-     *
-     *  If you change the name to helloparmas as you want, the contents will be reflected on the screen.
-     */
-    var helloApi = 'luna://com.domain.tutorial.service/hello';
-    var helloParams = '{"name":"THINCAR"}';
 
     function getTime_callback(msg){
         var arg = JSON.parse(msg);
@@ -41,10 +30,62 @@ window.onload = function() {
         }
     }
 
-    bridge.onservicecallback = getTime_callback;
-    bridge.call(getTimeUrl, getTimeParams);
-    document.getElementById("txt_msg").onclick = function() {
+    function getCameraList_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            document.getElementById("label_cam_list").innerHTML = arg.deviceList;
+            console.log("[getCameraList] Success");
+        }
+        else {
+            console.error("[getCameraList] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+        }
+    }
+
+    /*
+     * LS2 API 메서드 함수화
+     */
+
+    // clock/getTime()
+    function getTime(){
+        var url = 'luna://com.webos.service.systemservice/clock/getTime';
+        var params = '{}';
+        bridge.onservicecallback = getTime_callback;
+        bridge.call(url, params);
+    }
+
+    // hello(name)
+    function hello(name){
+        var url = 'luna://com.domain.tutorial.service/hello';
+        var params = '{"name":"' + name + '"}';
         bridge.onservicecallback = hello_callback;
-        bridge.call(helloApi, helloParams);
+        bridge.call(url, params);
+    }
+
+    // getCameraList()
+    // 현재 에러 발생중 : Emulator 말고 실제 기기에서 테스트 필요!!
+    function getCameraList(){
+        var url = 'luna://com.webos.service.camera2/getCameraList';
+        var params = '{}';
+        bridge.onservicecallback = getCameraList_callback;
+        bridge.call(url, params);
+    }
+
+    /*
+     * 이벤트 리스너 설정
+     */
+    
+    document.getElementById("txt_msg").onclick = function() {
+        hello("THINCAR");
     };
+
+    document.getElementById("button_cam_list").onclick = function() {
+        getCameraList();
+    }
+
+    /*
+     * 테스트
+     */ 
+
+    getTime();
+
 }
