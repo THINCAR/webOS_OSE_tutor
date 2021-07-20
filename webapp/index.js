@@ -33,11 +33,43 @@ window.onload = function() {
     function getCameraList_callback(msg){
         var arg = JSON.parse(msg);
         if (arg.returnValue) {
-            document.getElementById("label_cam_list").innerHTML = arg.deviceList;
+            var camList = arg.deviceList;
+            var listLabel = document.getElementById("label_cam_list");
+
+            if(camList!==""){
+                listLabel.innerHTML = "";
+                camList.forEach(element => {
+                    listLabel.innerHTML = listLabel.innerHTML + element.id;
+                    console.log(element.id);
+                });
+            }
+            else{
+                listLabel.innerHTML = "None Camera"
+            }
             console.log("[getCameraList] Success");
         }
         else {
             console.error("[getCameraList] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+        }
+    }
+
+    function openCamera_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            console.log("[openCamera] Success [handle: " + arg.handle + "]");
+        }
+        else{
+            console.error("[openCamera] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+        }
+    }
+
+    function startPreview_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            console.log("[openCamera] Success [key: " + arg.key + "]");
+        }
+        else{
+            console.error("[openCamera] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
         }
     }
 
@@ -61,14 +93,37 @@ window.onload = function() {
         bridge.call(url, params);
     }
 
-    // getCameraList()
-    // 현재 에러 발생중 : Emulator 말고 실제 기기에서 테스트 필요!!
+    // camera2/getCameraList()
     function getCameraList(){
         var url = 'luna://com.webos.service.camera2/getCameraList';
         var params = '{}';
         bridge.onservicecallback = getCameraList_callback;
         bridge.call(url, params);
     }
+
+    // camera2/open(id)
+    function openCamera(id){
+        var url = 'luna://com.webos.service.camera2/open';
+        var params = '{"id":"' + id + '"}';
+        bridge.onservicecallback = openCamera_callback;
+        bridge.call(url,params);
+    }
+
+    // camera2/startPreview
+    function startPreview(handle){
+        var url = 'luna://com.webos.service.camera2/startPreview'
+        var params = JSON.stringify({
+            "handle": handle,
+            "params":{
+                "type": "sharedmemory",
+                "source": "0"
+            }
+        })
+        console.log(params);
+        bridge.onservicecallback = startPreview_callback;
+        bridge.call(url,params);
+    }
+
 
     /*
      * 이벤트 리스너 설정
@@ -80,6 +135,17 @@ window.onload = function() {
 
     document.getElementById("button_cam_list").onclick = function() {
         getCameraList();
+    }
+
+    document.getElementById("button_cam_open").onclick = function() {
+        var id = document.getElementById("cam_id_input").value;
+        openCamera(id);
+    }
+
+    document.getElementById("button_start_preview").onclick = function() {
+        var id = document.getElementById("cam_handle_input").value;
+        id = Number(id);
+        startPreview(id);
     }
 
     /*
