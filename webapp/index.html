@@ -19,7 +19,8 @@ SPDX-License-Identifier: Apache-2.0
         <h1 id="txt_msg">Hello, Web Application!!</h1>
     </div>
     <div class="container">
-        <div class="label" id="label_cam_list">
+        <div class="label_title">Get Camera List</div>
+        <div class="label_result" id="label_cam_list">
             none camera
         </div>
         <div class="button": id="button_cam_list">
@@ -27,18 +28,56 @@ SPDX-License-Identifier: Apache-2.0
         </div>
     </div>
     <div class="container">
-        <input type="text" class="input_box" id="cam_id_input">
+        <div class="label_title">Open Camera</div>
+        <div class="label_result" id="label_cam_open">
+            handle : none
+        </div>
+        <input type="text" class="input_box" id="input_cam_open">
         <div class="button": id="button_cam_open">
             camera open
         </div>
     </div>
     <div class="container">
-        <input type="text" class="input_box" id="cam_handle_input">
+        <div class="label_title">Start Preview with Camera</div>
+        <input type="text" class="input_box" id="input_start_preview">
         <div class="button": id="button_start_preview">
             start preview
         </div>
     </div>
-
+    <div class="container">
+        <div class="label_title">Get Camera Info</div>
+        <div class="label_result" id="label_get_info">
+            None Info
+        </div>
+        <input type="text" class="input_box" id="input_get_info">
+        <div class="button": id="button_get_info">
+            get info
+        </div>
+    </div>
+    <div class="container">
+        <div class="label_title">Get Camera Properties</div>
+        <div class="label_result" id="label_get_prop">
+            None Properties
+        </div>
+        <input type="text" class="input_box" id="input_get_prop">
+        <div class="button": id="button_get_prop">
+            get properties
+        </div>
+    </div>
+    <div class="container">
+        <div class="label_title">Set Camera Properties</div>
+        <input type="text" class="input_box" id="input_set_prop">
+        <div class="button": id="button_set_prop">
+            set properties
+        </div>
+    </div>
+    <div class="container">
+        <div class="label_title">Set Camera Format</div>
+        <input type="text" class="input_box" id="input_set_format">
+        <div class="button": id="button_set_format">
+            set format
+        </div>
+    </div>
 
 </body>
 </html>
