@@ -67,10 +67,10 @@ window.onload = function() {
     function startPreview_callback(msg){
         var arg = JSON.parse(msg);
         if (arg.returnValue) {
-            console.log("[openCamera] Success [key: " + arg.key + "]");
+            console.log("[StartPreview] Success [key: " + arg.key + "]");
         }
         else{
-            console.error("[openCamera] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+            console.error("[StartPreview] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
         }
     }
 
@@ -216,7 +216,7 @@ window.onload = function() {
         var params = JSON.stringify({
             "handle": Number(handle),
             "params": {
-
+                "contrast":100
             }
         })
         bridge.onservicecallback = setProperties_callback;
@@ -231,7 +231,7 @@ window.onload = function() {
             "params": {
                 "width":640,
                 "height":480,
-                "format":"YUV",
+                "format":"JPEG",
                 "fps":30
             }
         })
