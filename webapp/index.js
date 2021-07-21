@@ -64,6 +64,17 @@ window.onload = function() {
         }
     }
 
+    function closeCamera_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            console.log("[closeCamera] Success");
+        }
+        else{
+            console.error("[closeCamera] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+        }
+    }
+
+
     function startPreview_callback(msg){
         var arg = JSON.parse(msg);
         if (arg.returnValue) {
@@ -71,6 +82,16 @@ window.onload = function() {
         }
         else{
             console.error("[StartPreview] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+        }
+    }
+
+    function stopPreview_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            console.log("[StopPreview] Success");
+        }
+        else{
+            console.error("[StopPreview] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
         }
     }
 
@@ -171,8 +192,20 @@ window.onload = function() {
     // camera2/open(id)
     function openCamera(id){
         var url = 'luna://com.webos.service.camera2/open';
-        var params = '{"id":"' + id + '"}';
+        var params = JSON.stringify({
+            "id": String(id)
+        })
         bridge.onservicecallback = openCamera_callback;
+        bridge.call(url,params);
+    }
+
+    // camera2/close(handle)
+    function closeCamera(handle){
+        var url = 'luna://com.webos.service.camera2/close';
+        var params = JSON.stringify({
+            "handle": Number(handle)
+        })
+        bridge.onservicecallback = closeCamera_callback;
         bridge.call(url,params);
     }
 
@@ -189,6 +222,17 @@ window.onload = function() {
         bridge.onservicecallback = startPreview_callback;
         bridge.call(url,params);
     }
+
+    //camera2/stopPreview(handle)
+    function stopPreview(handle){
+        var url = 'luna://com.webos.service.camera2/stopPreview';
+        var params = JSON.stringify({
+            "handle": Number(handle)
+        })
+        bridge.onservicecallback = stopPreview_callback;
+        bridge.call(url,params);
+    }
+
 
     // camera2/getInfo(id)
     function getInfo(id){
@@ -256,9 +300,19 @@ window.onload = function() {
         openCamera(id);
     }
 
+    document.getElementById("button_cam_close").onclick = function() {
+        var handle = document.getElementById("label_cam_open").value;
+        closeCamera(handle); 
+    }
+
     document.getElementById("button_start_preview").onclick = function() {
         var handle = document.getElementById("input_start_preview").value;
         startPreview(handle);
+    }
+
+    document.getElementById("button_stop_preview").onclick = function() {
+        var handle = document.getElementById("input_start_preview").value;
+        stopPreview(handle);
     }
 
     document.getElementById("button_get_info").onclick = function() {
