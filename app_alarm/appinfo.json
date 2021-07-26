@@ -1,13 +1,12 @@
 {
-  "id": "com.domain.noti",
+  "id": "com.domain.alarm",
   "version": "1.0.0",
   "vendor": "My Company",
   "type": "web",
   "main": "index.html",
-  "title": "noti",
+  "title": "alarm",
   "icon": "icon.png",
   "requiredPermissions": [
-    "notification.management",
-    "notification.operation"
+    "systemsettings.management"
   ]
 }
