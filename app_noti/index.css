@@ -1,0 +1,34 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color:#ffffff;
+}
+.container{
+    float:left;
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #c93130;
+}
+
+.button{
+    float: left;
+    display: block;
+    padding: 5px;
+    margin: 5px;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    color: #000000;
+    background-color: #aaaaaa;
+}
+
+.label_title{
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000000;
+}

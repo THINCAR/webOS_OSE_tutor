@@ -7,7 +7,7 @@
   "title": "noti",
   "icon": "icon.png",
   "requiredPermissions": [
-    "time.query",
-    "activity.operation"
+    "notification.management",
+    "notification.operation"
   ]
 }
