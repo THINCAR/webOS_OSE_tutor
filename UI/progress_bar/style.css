@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button{
+    position: relative;
+    height: 55px;
+    max-width: 300px;
+    width: 100%;
+    background-color: #7d2ae8;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.button::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background-color:rgba(0,0,0,0.2);
+    border-radius: 6px;
+    transition: all 6s ease;
+}
+
+.button.progress::before{
+    animation: progress 6s ease-in-out forwards;
+}
+@keyframes progress{
+    0%{
+        left: -100%;
+    }
+    10%{
+        left:-97%;
+    }
+    20%{
+        left:-92%;
+    }
+    30%{
+        left:-82%;
+    }
+    40%{
+        left:-38%;
+    }
+    50%{
+        left:-28%;
+    }
+    60%{
+        left:-14%;
+    }
+    70%{
+        left:-14%;
+    }
+    80%{
+        left:-7%;
+    }
+    90%{
+        left:-3%;
+    }
+    100%{
+        left:0%;
+    }
+}
+
+.button .text-icon{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button .text-icon i,
+.button .text-icon span{
+    position: relative;
+    color: #fff;
+    font-size: 26px;
+}
+
+.button .text-icon span{
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 8px;
+}
