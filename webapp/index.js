@@ -282,6 +282,39 @@ window.onload = function() {
         bridge.onservicecallback = setFormat_callback;
         bridge.call(url,params);
     }
+    
+    // setAlert()
+    function setAlert(){
+        var url = 'luna://com.domain.tutorial.service/alert'
+        var params = '{}'
+        bridge.onservicecallback = function(msg){
+            var arg = JSON.parse(msg);
+            if (arg.returnValue) {
+                console.log("[setAlert] Success, id : " + arg.id);
+            }
+            else{
+                console.error("[setAlert] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+            }
+        }
+        bridge.call(url,params);
+    }
+
+    // setToast()
+    function setToast(){
+        var url = 'luna://com.domain.tutorial.service/toast'
+        var params = '{}'
+        bridge.onservicecallback = function(msg){
+            var arg = JSON.parse(msg);
+            if (arg.returnValue) {
+                console.log("[setToast] Success, id : " + arg.id);
+            }
+            else{
+                console.error("[setToast] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+            }
+        }
+        bridge.call(url,params);
+    }
+
 
     /*
      * 이벤트 리스너 설정
@@ -333,6 +366,10 @@ window.onload = function() {
     document.getElementById("button_set_format").onclick = function() {
         var handle = document.getElementById("input_set_format").value;
         setFormat(handle);
+    }
+
+    document.getElementById("button_set_alert").onclick = function(){
+        setToast();
     }
 
     /*
