@@ -10,6 +10,7 @@
     "time.query",
     "activity.operation",
     "camera.operation",
-    "camera.query"
+    "camera.query",
+    "notification.management"
   ]
 }

@@ -15,6 +15,48 @@ const service = new Service(pkgInfo.name); // Create service by service name on 
 const logHeader = "[" + pkgInfo.name + "]";
 let greeting = "Hello, World!";
 
+// my alert service
+service.register("alert", function(message){
+    console.log(logHeader, "service called : /alert");
+    param = {
+        "message":"you can see it?.",
+        "buttons":[
+            {
+                "label":"confirm",
+                "params":{
+                    "id":"youtube.leanback.v4"
+                }
+            }
+        ]
+    };
+    service.call("luna://com.webos.notification/createAlert", param, function(m) {
+        console.log(logHeader, m.payload.returnValue);
+        message.respond({
+            returnValue : m.payload.returnValue,
+            id : m.payload.alertId,
+            errorCode : m.payload.errorCode,
+            errorText : m.payload.errorText 
+        });
+    });
+})
+
+// my toast service
+service.register("toast", function(message){
+    console.log(logHeader, "service called : /toast");
+    param = {
+        "message":"you can see it?."
+    };
+    service.call("luna://com.webos.notification/createToast", param, function(m) {
+        console.log(logHeader, m.payload.returnValue);
+        message.respond({
+            returnValue : m.payload.returnValue,
+            id : m.payload.toastId,
+            errorCode : m.payload.errorCode,
+            errorText : m.payload.errorText 
+        });
+    });
+})
+
 // a method that always returns the same value
 service.register("hello", function(message) {
     console.log(logHeader, "SERVICE_METHOD_CALLED:/hello");
