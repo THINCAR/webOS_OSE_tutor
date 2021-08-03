@@ -315,6 +315,23 @@ window.onload = function() {
         bridge.call(url,params);
     }
 
+    function testTTS(){
+        var url = 'luna://com.webos.service.tts/speak'
+        var params = JSON.stringify({
+            "text":"test the TTS service",
+            "clear":true
+        });
+        bridghe.onservicecallback = (msg)=>{
+            var arg = JSON.parse(msg);
+            if (arg.returnValue) {
+                console.log("[testTTS] Success.");
+            }
+            else{
+                console.error("[testTTS] Failed, error <" + arg.errorCode + "> : " + arg.errorText);
+            }
+        }
+        bridge.call(url,params);
+    }
 
     /*
      * 이벤트 리스너 설정
@@ -372,6 +389,10 @@ window.onload = function() {
         setToast();
     }
 
+    const btn_tts = document.querySelector("#button_tts")
+    btn_tts.addEventListener("click",()=>{
+        testTTS();
+    })
     /*
      * 테스트
      */ 
