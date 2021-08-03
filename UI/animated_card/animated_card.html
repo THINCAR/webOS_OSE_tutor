@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Product Card</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <!-- boxicons CDN Links -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+</head>
+<body>
+    <div class="product-card">
+        <div class="logo-cart">
+            <img src="images/logo.jpg" alt="logo">
+            <i class="bx bx-shopping-bag"></i>
+        </div>
+        <div class="main-images">
+            <img class="blue active" src="images/blue.jpg" alt="blue">
+            <img class="pink" src="images/pink.jpg" alt="pink">
+            <img class="yellow" src="images/yellow.jpg" alt="yellow">
+        </div>
+        <div class="product-details">
+            <span class="product-name">제품의 이름란</span>
+            <p>아무 설명이나 자세하기 적어 놓는 용도 입니다. p태그를 사용하여 적었습니다.</p>
+            <div class="stars">
+                <i class="bx bxs-star"></i>
+                <i class="bx bxs-star"></i>
+                <i class="bx bxs-star"></i>
+                <i class="bx bxs-star"></i>
+                <i class="bx bx-star"></i>
+            </div>
+        </div>
+        <div class="color-price">
+            <div class="color-option">
+                <span class="color">Colour:</span>
+                <div class="circles">
+                    <span class="circle blue active" id="blue"></span>
+                    <span class="circle pink" id="pink"></span>
+                    <span class="circle yellow" id="yellow"></span>
+                </div>
+            </div>
+            <div class="price">
+                <span class="price-num">$09.00</span>
+                <span class="price-letter">Nine dollar only</span>
+            </div>
+        </div>
+        <div class="button">
+            <div class="button-layer"></div>
+            <button>Add To Cart</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+
+</body>
+</html> 
