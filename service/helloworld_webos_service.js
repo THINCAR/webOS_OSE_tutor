@@ -11,6 +11,10 @@
 const pkgInfo = require('./package.json');
 const Service = require('webos-service');
 
+// IoTivity
+// const device = require("iotivity-node");
+// device.server.oncreate();
+
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
 let greeting = "Hello, World!";
@@ -18,7 +22,7 @@ let greeting = "Hello, World!";
 // my alert service
 service.register("alert", function(message){
     console.log(logHeader, "service called : /alert");
-    param = {
+    var params = {
         "message":"you can see it?.",
         "buttons":[
             {
@@ -29,7 +33,7 @@ service.register("alert", function(message){
             }
         ]
     };
-    service.call("luna://com.webos.notification/createAlert", param, function(m) {
+    service.call("luna://com.webos.notification/createAlert", params, function(m) {
         console.log(logHeader, m.payload.returnValue);
         message.respond({
             returnValue : m.payload.returnValue,
