@@ -28,8 +28,7 @@ to start iotivity server with iotivity-node
 
 #### Examples    
 ```
-luna-send -i -f luna://com.example.service.iotivity.server/startServer 
-'{
+luna-send -i -f luna://com.example.service.iotivity.server/startServer '{
     "subscribe":true
 }'
 ```
@@ -80,8 +79,7 @@ To create resource
 
 #### Examples
 ```
-luna-send -1 -f luna://com.example.service.iotivity.server/createResource 
-'{
+luna-send -1 -f luna://com.example.service.iotivity.server/createResource '{
     "uri":"a/fan",
     "question":"abc",
     "answer":"123",
@@ -114,8 +112,7 @@ To delete resource with specific URI
 
 #### Examples  
 ```
-luna-send -1 -f luna://com.example.service.iotivity.server/deleteResource 
-'{
+luna-send -1 -f luna://com.example.service.iotivity.server/deleteResource '{
     "uri":"/a/fan"
 }'
 ```
