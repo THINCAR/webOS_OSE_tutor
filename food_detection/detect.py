@@ -244,7 +244,7 @@ def parse_opt(path):
     parser.add_argument('--weights', nargs='+', type=str, default='best.pt', help='model.pt path(s)')
     parser.add_argument('--source', type=str, default=path, help='file/dir/URL/glob, 0 for webcam')
     parser.add_argument('--imgsz', '--img', '--img-size', type=int, default=416, help='inference size (pixels)')
-    parser.add_argument('--conf-thres', type=float, default=0.5, help='confidence threshold')
+    parser.add_argument('--conf-thres', type=float, default=0.4, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
     parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
@@ -279,8 +279,11 @@ if __name__ == "__main__":
     image_path = 'data/images'
     opt = parse_opt(image_path)
     main(opt)
-    print(food)
-    result_image = cv2.imread(str(result_image_path["path"])+"/food.jpg", cv2.IMREAD_COLOR)
-    cv2.namedWindow("result")
-    cv2.imshow("result", result_image)
-    cv2.waitKey(0)
+    # print(food)
+    for key in list(food.keys()):
+        if int(food[key]) != 0:
+            print(key + " : " + str(food[key]) +"개")
+    # result_image = cv2.imread(str(result_image_path["path"])+"/food.jpg", cv2.IMREAD_COLOR)
+    # cv2.namedWindow("result")
+    # cv2.imshow("result", result_image)
+    # cv2.waitKey(0)
