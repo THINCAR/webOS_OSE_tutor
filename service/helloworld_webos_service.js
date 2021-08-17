@@ -17,12 +17,7 @@ const logHeader = "[" + pkgInfo.name + "]";
 const server = require('./server');
 let greeting = "Hello, World!";
 
-service.register("init",(msg)=>{
-    server.init();
-    msg.respond({
-        returnValue: true
-    })
-});
+server.init();
 
 // my alert service
 service.register("alert", function(message){

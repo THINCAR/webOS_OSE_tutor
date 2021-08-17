@@ -18,8 +18,26 @@ function init(){
         console.log("[Request] URI: '/hi'");
     })
 
-    var server = http.createServer(app);
-    server.listen(port);
+    const server = http.createServer(app);
+    server.listen(port,() => {
+        console.log("Express server has started");
+    });
+    const io = require("socket.io")(server, {
+        cors: {
+            origin: "https://localhost:5555",
+        },
+    });
+
+    io.on("connection", socket =>{
+        socket.send("Hello!");
+        socket.emit("greetings", "Hey", {"ms":"jane"}, Buffer.from([4,3,3,1]));
+        socket.on("message", (data) =>{
+            console.log(data);
+        });
+        socket.on("salutations", (elem1, elem2, elem3) =>{
+            console.log(elem1, elem2, elem3);
+        });
+    });
 }
 
 exports.init = init;
