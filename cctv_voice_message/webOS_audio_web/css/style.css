@@ -1,0 +1,69 @@
+*{
+    text-decoration: none;
+}
+
+.container{
+    width: 600px;
+    height: 360px;
+    text-align: center;
+    background-color: bisque;
+    position: relative;
+}
+
+.container > a{
+    color: white;
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#new{
+    color: rgba(255, 0, 0, 0.9);
+    margin-top: 30px;
+    font-size: 20px;
+    visibility: hidden;
+}
+
+.list_box{
+    height: 270px;
+    width: 440px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.list1{
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 200px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#message0, #message1, #message2, #message3,
+#message4, #message5, #message6, #message7,
+#message8, #message9{
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    margin-left: 18px;
+    margin-right: 18px;
+    background-color: whitesmoke;
+    padding: 10px;
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.trash{
+    background-color: gray;
+    cursor: pointer;
+    right: 10px;
+    height: 20px;
+    position: absolute;
+    border-radius: 2px;
+    z-index: 100;
+}
