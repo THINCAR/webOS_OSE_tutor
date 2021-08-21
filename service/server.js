@@ -1,20 +1,24 @@
 var http = require('http')
 var path = require('path')
 var express = require('express')
+var luna = require('./luna');
 
-function init(){
+function init(service){
     var app = express();
     var port = 5555;
     app.use(express.static('./'));
     app.use(express.json());
+    luna.init(service)
 
     app.get('/',function (req, res){
         res.sendFile('sample.html', { root: '.' });
+        luna.toast("'/' is requested from client");
         console.log("[Request] URI: '/' ");
     });
 
     app.get('/hi',function (req, res){
         res.send('<p> hello~ </p>');
+        luna.toast("'/hi' is requested from client")
         console.log("[Request] URI: '/hi'");
     })
 
