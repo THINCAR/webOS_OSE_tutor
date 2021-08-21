@@ -7,10 +7,10 @@
   "title": "tutorial",
   "icon": "icon.png",
   "requiredPermissions": [
-    "time.query",
     "activity.operation",
     "camera.operation",
     "camera.query",
-    "notification.management"
+    "notification.management",
+    "notification.operation"
   ]
 }
