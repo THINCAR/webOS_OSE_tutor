@@ -53,11 +53,11 @@ service.register("hello", function(message) {
     });
 });
 
-// service.register("init", (message)=>{
-//     server.init(service);
-//     message.respond({
-//         returnValue: true
-//     });
-// });
+service.register("init", (message)=>{
+    server.init(service);
+    message.respond({
+        returnValue: true
+    });
+});
 
-server.init(service);
+// server.init(service);

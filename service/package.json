@@ -2,7 +2,7 @@
   "name": "com.domain.tutorial.service",
   "version": "1.0.0",
   "description": "Helloworld service",
-  "main": "helloworld_webos_service.js",
+  "main": "service.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
