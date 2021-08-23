@@ -60,4 +60,17 @@ service.register("init", (message)=>{
     });
 });
 
+service.register("fetch", function(message) {
+    console.log(logHeader, "service called : /fetch");
+    var url = "http://192.168.0.69:5555/"
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
 // server.init(service);
