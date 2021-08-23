@@ -21,6 +21,11 @@ function init(service){
         luna.toast("'/hi' is requested from client")
         console.log("[Request] URI: '/hi'");
     })
+    app.get('/speak',function (req, res){
+        res.send('<p> speaking~ </p>');
+        luna.tts("text to speack test.");
+        console.log("[Request] URI: '/speak'")
+    })
 
     const server = http.createServer(app);
     server.listen(port,() => {

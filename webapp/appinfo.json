@@ -11,6 +11,7 @@
     "camera.operation",
     "camera.query",
     "notification.management",
-    "notification.operation"
+    "notification.operation",
+    "tts.operation"
   ]
 }
