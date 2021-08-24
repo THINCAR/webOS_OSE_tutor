@@ -1,9 +1,16 @@
+// HTTP server
 //#include <DNSServer.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <EEPROM.h>
+
+// HTTP client
+#include <ESP8266WiFiMulti.h>
+#include <ESP8266HTTPClient.h>
+
+ESP8266WiFiMulti WiFiMulti;
 
 const char *softAP_ssid = "i2r_ap_";
 const char *softAP_password = "00000000";
@@ -47,12 +54,15 @@ void setup() {
   delay(500); // Without delay I've seen the IP address blank
   Serial.print("AP IP address: ");
   Serial.println(WiFi.softAPIP());
+  WiFiMulti.addAP("mil304", "0632702463");
 
   pinMode(14,OUTPUT);
   pinMode(12,OUTPUT);
   pinMode(13,OUTPUT);
   pinMode(15,OUTPUT);
-  
+  pinMode(16,OUTPUT);
+  pinMode(2,OUTPUT);
+
 //  dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
 //  dnsServer.start(DNS_PORT, "*", apIP);
 
@@ -65,6 +75,7 @@ void setup() {
   server.on("/watermid",watermid);
   server.on("/waterhigh",waterhigh);
   server.on("/watercool",watercool);
+  server.on("/watersoso",watersoso);
   server.on("/waterhot",waterhot);
   server.onNotFound ( handleNotFound );
   server.begin(); // Web server start
@@ -283,30 +294,51 @@ String toStringIp(IPAddress ip) {
 
 void waterlow() {
   digitalWrite(14,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(13,HIGH);
+  digitalWrite(12,LOW);
+  digitalWrite(13,LOW);
+  httpcall();
   server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
 }
 
 void watermid() {
-  digitalWrite(14,LOW);
+  digitalWrite(14,HIGH);
   digitalWrite(12,HIGH);
-  digitalWrite(13,HIGH);
+  digitalWrite(13,LOW);
+  httpcall();
   server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
 }
 
 void waterhigh(){
-  digitalWrite(14,LOW);
-  digitalWrite(12,LOW);
+  digitalWrite(14,HIGH);
+  digitalWrite(12,HIGH);
   digitalWrite(13,HIGH);
   server.send ( 302, "text/plain", "");
 }
 
-void watercool() {
-  digitalWrite(15,HIGH);
-  server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
-}
-void waterhot() {
+void watercool(){
+  digitalWrite(16,LOW);
   digitalWrite(15,LOW);
-  server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
+  digitalWrite(2,HIGH);
+  server.send ( 302, "text/plain", "");
+}
+void watersoso(){
+  digitalWrite(16,LOW);
+  digitalWrite(15,HIGH);
+  digitalWrite(2,HIGH);
+  server.send ( 302, "text/plain", "");
+}
+void waterhot(){
+  digitalWrite(16,HIGH);
+  digitalWrite(15,HIGH);
+  digitalWrite(2,HIGH);
+  server.send ( 302, "text/plain", "");
+}
+
+void httpcall(){
+  if((WiFiMulti.run() == WL_CONNECTED)) {
+        HTTPClient http;
+        http.begin("http://192.168.0.69:5555/hi");
+        int httpCode = http.GET();
+        http.end();
+      }
 }

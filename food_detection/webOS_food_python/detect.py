@@ -12,6 +12,8 @@ from pathlib import Path
 import cv2
 import torch
 import torch.backends.cudnn as cudnn
+import requests
+import json
 
 FILE = Path(__file__).absolute()
 sys.path.append(FILE.parents[0].as_posix())  # add yolov5/ to path
@@ -275,15 +277,35 @@ def main(opt):
     run(**vars(opt))
 
 
-if __name__ == "__main__":
+while True:
     image_path = 'data/images'
     opt = parse_opt(image_path)
     main(opt)
-    # print(food)
-    for key in list(food.keys()):
-        if int(food[key]) != 0:
-            print(key + " : " + str(food[key]) +"개")
+
+    try:
+        with open("food_list.txt", 'w') as f:
+            # print(food)
+            for key in list(food.keys()):
+                if int(food[key]) != 0:
+                    f.write(key + " : " + str(food[key]) + "개" + "\n")
+
+        url = 'http://localhost:3000/webOS_refrigerator/upload.php'
+        files = {'upload': open("food_list.txt", 'rb')}
+        r = requests.post(url, files=files)
+        files = {'upload': open(str(result_image_path["path"]) + "/food.jpg", 'rb')}
+        r = requests.post(url, files=files)
+
+        # json 형식으로 만들어서 Post 하려고 시도했는데 끝내 성공못함.
+        # url = 'http://localhost:3000/webOS_refrigerator/result.php'
+        # headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
+        # postMessage = {"Info": {"ID": 1, "IP": "192.168.1.1"}}
+        # response = requests.post(url, json=postMessage, headers=headers)
+        print("전송 성공")
+    except:
+        print("전송 실패")
+
     # result_image = cv2.imread(str(result_image_path["path"])+"/food.jpg", cv2.IMREAD_COLOR)
     # cv2.namedWindow("result")
     # cv2.imshow("result", result_image)
     # cv2.waitKey(0)
+    break
