@@ -15,6 +15,7 @@ const service = new Service(pkgInfo.name); // Create service by service name on 
 const logHeader = "[" + pkgInfo.name + "]";
 
 const server = require('./server');
+const fetch = require('node-fetch');
 
 // how to persist server
 service.activityManager.idleTimeout = 60 * 60 * 24 * 7; // 1 week
@@ -62,7 +63,8 @@ service.register("init", (message)=>{
 
 service.register("fetch", function(message) {
     console.log(logHeader, "service called : /fetch");
-    var url = "http://192.168.0.69:5555/"
+    var text = message.payload.text;
+    var url = "http://192.168.0.35/" + text;
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -70,7 +72,10 @@ service.register("fetch", function(message) {
         })
         .catch(err => {
             console.log(err);
-        })
-}
+        });
+    message.respond({
+        returnValue: true
+    });
+});
 
 // server.init(service);
