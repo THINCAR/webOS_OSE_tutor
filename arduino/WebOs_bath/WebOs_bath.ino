@@ -57,15 +57,15 @@ void setup() {
   WiFiMulti.addAP("mil304", "0632702463");
 
   pinMode(16,OUTPUT);
-  pinMode(15,OUTPUT);
   pinMode(14,OUTPUT);
+  pinMode(12,OUTPUT);
+  pinMode(13,OUTPUT);
+  pinMode(15,OUTPUT);
+  pinMode(3,OUTPUT);
   pinMode(5,OUTPUT);
   pinMode(4,OUTPUT);
   pinMode(0,OUTPUT);
-  pinMode(12,OUTPUT);
-  pinMode(13,OUTPUT);
-  pinMode(16,OUTPUT);
-  pinMode(3,OUTPUT);
+  pinMode(2,OUTPUT);
 
 //  dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
 //  dnsServer.start(DNS_PORT, "*", apIP);
@@ -75,16 +75,17 @@ void setup() {
   server.on("/wifisave", handleWifiSave);
   server.on("/generate_204", handleRoot);  //Android captive portal. Maybe not needed. Might be handled by notFound handler.
   server.on("/fwlink", handleRoot);  //Microsoft captive portal. Maybe not needed. Might be handled by notFound handler.
-  server.on("/watera",watera);
-  server.on("/waterb",waterb);
-  server.on("/waterc",waterc);
-  server.on("/watera",waterd);
-  server.on("/watera",watere);
   server.on("/waterone",waterone);
   server.on("/watertwo",watertwo);
   server.on("/waterthree",waterthree);
-  server.on("/waterthree",waterfour);
-  server.on("/waterthree",waterfive);
+  server.on("/waterfour",waterfour);
+  server.on("/waterfive",waterfive);
+  server.on("/watera",watera);
+  server.on("/waterb",waterb);
+  server.on("/waterc",waterc);
+  server.on("/waterd",waterd);
+  server.on("/watere",watere);
+  server.on("/turnoff",turnoff);
   server.onNotFound ( handleNotFound );
   server.begin(); // Web server start
   Serial.println("HTTP server started");
@@ -300,89 +301,90 @@ String toStringIp(IPAddress ip) {
   return res;
 }
 
-void watera() {
+void waterone() {
+  digitalWrite(16,HIGH);
+  digitalWrite(14,LOW);
+  digitalWrite(12,LOW);
+  digitalWrite(13,LOW);
+  digitalWrite(15,LOW);
+  httpcall();
+  server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
+}
+
+void watertwo() {
+  digitalWrite(16,HIGH);
   digitalWrite(14,HIGH);
   digitalWrite(12,LOW);
   digitalWrite(13,LOW);
-  digitalWrite(16,LOW);
   digitalWrite(15,LOW);
   httpcall();
   server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
-}
-
-void waterb() {
-  digitalWrite(14,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(13,LOW);
-  digitalWrite(16,LOW);
-  digitalWrite(15,LOW);
-  httpcall();
-  server.send ( 302, "text/plain", "");  // Empty content inhibits Content-length header so we have to close the socket ourselves.
-}
-
-void waterc(){
-  digitalWrite(14,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(13,HIGH);
-  digitalWrite(16,LOW);
-  digitalWrite(15,LOW);
-  server.send ( 302, "text/plain", "");
-}
-
-void waterd(){
-  digitalWrite(14,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(13,HIGH);
-  digitalWrite(16,HIGH);
-  digitalWrite(15,LOW);
-  server.send ( 302, "text/plain", "");
-}
-
-void watere(){
-  digitalWrite(14,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(13,HIGH);
-  digitalWrite(16,HIGH);
-  digitalWrite(15,HIGH);
-  server.send ( 302, "text/plain", "");
-}
-
-void waterone(){
-  digitalWrite(3,HIGH);
-  digitalWrite(5,LOW);
-  digitalWrite(4,LOW);
-  digitalWrite(0,LOW);
-  digitalWrite(2,LOW);
-  server.send ( 302, "text/plain", "");
-}
-
-void watertwo(){
-  digitalWrite(3,HIGH);
-  digitalWrite(5,HIGH);
-  digitalWrite(4,LOW);
-  digitalWrite(0,LOW);
-  digitalWrite(2,LOW);
-  server.send ( 302, "text/plain", "");
 }
 
 void waterthree(){
-  digitalWrite(3,HIGH);
-  digitalWrite(5,HIGH);
-  digitalWrite(4,HIGH);
-  digitalWrite(0,LOW);
-  digitalWrite(2,LOW);
+  digitalWrite(16,HIGH);
+  digitalWrite(14,HIGH);
+  digitalWrite(13,HIGH);
+  digitalWrite(12,LOW);
+  digitalWrite(15,LOW);
   server.send ( 302, "text/plain", "");
 }
 
 void waterfour(){
-  digitalWrite(3,HIGH);
-  digitalWrite(5,HIGH);
-  digitalWrite(4,HIGH);
-  digitalWrite(0,HIGH);
-  digitalWrite(2,LOW);
+  digitalWrite(16,HIGH);
+  digitalWrite(14,HIGH);
+  digitalWrite(12,HIGH);
+  digitalWrite(13,HIGH);
+  digitalWrite(15,LOW);
   server.send ( 302, "text/plain", "");
 }
+
 void waterfive(){
+  digitalWrite(16,HIGH);
+  digitalWrite(14,HIGH);
+  digitalWrite(12,HIGH);
+  digitalWrite(13,HIGH);
+  digitalWrite(15,HIGH);
+  server.send ( 302, "text/plain", "");
+}
+
+void watera(){
+  digitalWrite(2,HIGH);
+  digitalWrite(5,LOW);
+  digitalWrite(4,LOW);
+  digitalWrite(0,LOW);
+  digitalWrite(3,LOW);
+  server.send ( 302, "text/plain", "");
+}
+
+void waterb(){
+  digitalWrite(2,HIGH);
+  digitalWrite(4,HIGH);
+  digitalWrite(3,LOW);
+  digitalWrite(0,LOW);
+  digitalWrite(5,LOW);
+  server.send ( 302, "text/plain", "");
+}
+
+void waterc(){
+  digitalWrite(2,HIGH);
+  digitalWrite(4,HIGH);
+  digitalWrite(0,HIGH);
+  digitalWrite(3,LOW);
+  digitalWrite(5,LOW);
+  server.send ( 302, "text/plain", "");
+}
+
+void waterd(){
+  digitalWrite(3,HIGH);
+  digitalWrite(2,HIGH);
+  digitalWrite(4,HIGH);
+  digitalWrite(0,HIGH);
+  digitalWrite(5,LOW);
+  server.send ( 302, "text/plain", "");
+}
+
+void watere(){
   digitalWrite(3,HIGH);
   digitalWrite(5,HIGH);
   digitalWrite(4,HIGH);
@@ -390,6 +392,21 @@ void waterfive(){
   digitalWrite(2,HIGH);
   server.send ( 302, "text/plain", "");
 }
+void turnoff(){
+  digitalWrite(14,LOW);
+  digitalWrite(12,LOW);
+  digitalWrite(13,LOW);
+  digitalWrite(16,LOW);
+  digitalWrite(15,LOW);
+  digitalWrite(3,LOW);
+  digitalWrite(5,LOW);
+  digitalWrite(4,LOW);
+  digitalWrite(0,LOW);
+  digitalWrite(2,LOW);
+  server.send ( 302, "text/plain", "");
+}
+
+
 
 void httpcall(){
   if((WiFiMulti.run() == WL_CONNECTED)) {

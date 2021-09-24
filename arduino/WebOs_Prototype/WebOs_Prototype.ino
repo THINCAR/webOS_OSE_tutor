@@ -59,9 +59,9 @@ void setup() {
   pinMode(14,OUTPUT);
   pinMode(12,OUTPUT);
   pinMode(13,OUTPUT);
-  pinMode(15,OUTPUT);
+  pinMode(1,OUTPUT);
   pinMode(16,OUTPUT);
-  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
 
 //  dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
 //  dnsServer.start(DNS_PORT, "*", apIP);
@@ -317,20 +317,20 @@ void waterhigh(){
 
 void watercool(){
   digitalWrite(16,LOW);
-  digitalWrite(15,LOW);
-  digitalWrite(2,HIGH);
+  digitalWrite(1,LOW);
+  digitalWrite(3,HIGH);
   server.send ( 302, "text/plain", "");
 }
 void watersoso(){
   digitalWrite(16,LOW);
-  digitalWrite(15,HIGH);
-  digitalWrite(2,HIGH);
+  digitalWrite(1,HIGH);
+  digitalWrite(3,HIGH);
   server.send ( 302, "text/plain", "");
 }
 void waterhot(){
   digitalWrite(16,HIGH);
-  digitalWrite(15,HIGH);
-  digitalWrite(2,HIGH);
+  digitalWrite(1,HIGH);
+  digitalWrite(3,HIGH);
   server.send ( 302, "text/plain", "");
 }
 
