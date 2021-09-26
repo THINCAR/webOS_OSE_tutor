@@ -1,9 +1,17 @@
+// HTTP server
 //#include <DNSServer.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <EEPROM.h>
+
+// HTTP client
+#include <ESP8266WiFiMulti.h>
+#include <ESP8266HTTPClient.h>
+
+ESP8266WiFiMulti WiFiMulti;
+
 
 const char *softAP_ssid = "i2r_ap_";
 const char *softAP_password = "00000000";
@@ -47,11 +55,14 @@ void setup() {
   delay(500); // Without delay I've seen the IP address blank
   Serial.print("AP IP address: ");
   Serial.println(WiFi.softAPIP());
+  WiFiMulti.addAP("mil304", "0632702463");
 
   pinMode(14,OUTPUT);
   pinMode(12,OUTPUT);
   pinMode(13,OUTPUT);
   pinMode(15,OUTPUT);
+  pinMode(16,OUTPUT);
+  pinMode(2,OUTPUT);
   
 //  dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
 //  dnsServer.start(DNS_PORT, "*", apIP);
